@@ -1,8 +1,18 @@
 <p><%= link_to "Home", root_path %></p>
-<%= image_tag @post.image.url(:medium) %>
 <h2><%= @post.title %></h2>
 <p>Submited by <%= @post.user.username %></p>
 <%= link_to @post.link, @post.link  %>
+<div class="">
+  <%= image_tag @post.image.url(:medium) %>
+</div>
+<p>
+  <%= pluralize(@post.get_upvotes.size, "Like") %>
+  <%= link_to "Like", like_post_path(@post), method: :get %>
+</p>
+<p>
+  <%= pluralize(@post.get_downvotes.size, "Dislike") %>
+  <%= link_to "Dislike", dislike_post_path(@post), method: :get %>
+</p>
 <p><%= @post.description %></p>
 <%= link_to 'Edit', edit_post_path(@post) %>
 <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: "Are you sure?" } %>

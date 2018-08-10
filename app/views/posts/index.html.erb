@@ -1,10 +1,41 @@
-<h1>Showcase</h1>
-<p><%= link_to "New", new_post_path %></p>
-<% @posts.each do |post| %>
-  <%= link_to (image_tag post.image.url(:small)), post %>
-  <h2><%= link_to post.title, post %></h2>
-  <p>
-    <%= pluralize(post.get_upvotes.size, "Like") %>
-    <%= pluralize(post.comments.count, "Comment") %>
+<% if user_signed_in? %>
+  <p id="intro">
+    Hello <%= current_user.username %>
+    <br>
+    <span>Share your inspiration and see what's inspiring others.</span>
   </p>
+<% else %>
+<p id="intro">
+  <span>Share your inspiration and see what's inspiring others.</span>
+</p>
 <% end %>
+
+<div id="posts">
+  <% @posts.each do |post| %>
+    <div class="post">
+      <div class="post-image">
+        <%= link_to (image_tag post.image.url(:small)), post %>
+      </div>
+      <div class="post-content">
+        <div class="title">
+          <h2><%= link_to post.title, post %></h2>
+        </div>
+        <div class="data clearfix">
+          <p class="username">
+            Shared by <%= post.user.username %>
+          </p>
+          <p class="buttons">
+            <span>
+              <i class="fa fa-comments-o"></i>
+              <%= post.comments.count %>
+            </span>
+            <span>
+              <i class="fa fa-thumbs-o-up"></i>
+              <%= post.get_upvotes.size %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

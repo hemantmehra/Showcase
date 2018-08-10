@@ -30,6 +30,34 @@
         <%= pluralize(@post.comments.count, "Comment") %>
       </p>
     </div>
+    <div id="random-post">
+      <h3>Random Post</h3>
+      <div class="post">
+        <div class="post-image">
+          <%= link_to (image_tag @random_post.image.url(:small)), post_path(@random_post) %>
+        </div>
+        <div class="post-content">
+          <div class="title">
+            <h2><%= link_to @random_post.title, post_path(@random_post) %></h2>
+          </div>
+          <div class="data clearfix">
+            <p class="username">
+              Shared by <%= @random_post.user.username %>
+            </p>
+            <p class="buttons">
+              <span>
+                <i class="fa fa-comments-o"></i>
+                <%= @random_post.comments.count %>
+              </span>
+              <span>
+                <i class="fa fa-thumbs-o-up"></i>
+                <%= @random_post.get_upvotes.size %>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
